@@ -1,0 +1,2 @@
+schema: ./github-schema.docs.graphql
+documents: '**/*.graphql'

@@ -7,6 +7,7 @@ import com.github.regyl.gfi.model.LabelModel;
 import com.github.regyl.gfi.service.DataService;
 import com.github.regyl.gfi.service.label.LabelService;
 import com.github.regyl.gfi.service.source.IssueSourceService;
+import com.github.regyl.gfi.util.ResourceUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -25,49 +26,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class GithubIssueSourceServiceImpl implements IssueSourceService {
 
-    private static final String QUERY = """
-            query SearchIssuesByLabel($query: String!, $cursor: String) {
-                              rateLimit {
-                                cost
-                                remaining
-                                resetAt
-                              }
-                              search(query: $query, type: ISSUE, first: 100, after: $cursor) {
-                                pageInfo {
-                                  hasNextPage
-                                  endCursor
-                                }
-                                nodes {
-                                  ... on Issue {
-                                    id
-                                    number
-                                    title
-                                    url
-                                    state
-                                    updatedAt
-                                    createdAt
-                                    repository {
-                                        id
-                                        nameWithOwner
-                                        url
-                                        description
-                                        stargazerCount
-                                        primaryLanguage {
-                                            id
-                                            name
-                                        }
-                                        updatedAt
-                                    }
-                                    labels(first: 20) {
-                                        nodes {
-                                            name
-                                        }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-            """;
+    private static final String QUERY = ResourceUtil.getFilePayload("graphql/github-reuqest.graphql");
 
     private final GraphQlClient githubClient;
     private final LabelService labelService;

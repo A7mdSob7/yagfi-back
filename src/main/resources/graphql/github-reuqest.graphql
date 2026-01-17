@@ -1,0 +1,41 @@
+query SearchIssuesByLabel($query: String!, $cursor: String) {
+    rateLimit {
+        cost
+        remaining
+        resetAt
+    }
+    search(query: $query, type: ISSUE, first: 100, after: $cursor) {
+        pageInfo {
+            hasNextPage
+            endCursor
+        }
+        nodes {
+            ... on Issue {
+                id
+                number
+                title
+                url
+                state
+                updatedAt
+                createdAt
+                repository {
+                    id
+                    nameWithOwner
+                    url
+                    description
+                    stargazerCount
+                    primaryLanguage {
+                        id
+                        name
+                    }
+                    updatedAt
+                }
+                labels(first: 20) {
+                    nodes {
+                        name
+                    }
+                }
+            }
+        }
+    }
+}
