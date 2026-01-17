@@ -39,6 +39,10 @@ public class GithubIssueSourceServiceImpl implements IssueSourceService {
         Collection<LabelModel> labels = labelService.findAll();
         for (LabelModel label : labels) {
 
+            if (log.isDebugEnabled()) {
+                log.info("Uploading label {}", label);
+            }
+
             String query = String.format("is:issue is:open no:assignee label:\"%s\"", label.getTitle());
             taskExecutor.submit(() -> {
                 IssueData response = getIssues(new IssueRequestDto(query, null));

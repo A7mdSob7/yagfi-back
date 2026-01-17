@@ -14,7 +14,7 @@ public class LabelServiceImpl implements LabelService {
     private final static Collection<LabelModel> DATA;
 
     static {
-        DATA = Arrays.stream(ResourceUtil.getFilePayload("data/labels.txt").split(System.lineSeparator()))
+        DATA = Arrays.stream(ResourceUtil.getFilePayload("data/labels.txt").split("\r\n"))
                 .map(LabelModel::new)
                 .toList();
     }
