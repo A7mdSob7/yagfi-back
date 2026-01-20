@@ -73,7 +73,7 @@ public class DataServiceImpl implements DataService {
     }
 
     @Override
-    public Set<String> findAllLanguages() {
+    public Collection<String> findAllLanguages() {
         return dataRepository.findAllLanguages();
     }
 }

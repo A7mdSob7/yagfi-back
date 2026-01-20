@@ -5,7 +5,7 @@ import com.github.regyl.gfi.controller.dto.request.DataRequestDto;
 import com.github.regyl.gfi.controller.dto.response.DataResponseDto;
 import com.github.regyl.gfi.model.IssueTables;
 
-import java.util.Set;
+import java.util.Collection;
 
 public interface DataService {
 
@@ -13,5 +13,5 @@ public interface DataService {
 
     DataResponseDto findAllIssues(DataRequestDto requestDto);
 
-    Set<String> findAllLanguages();
+    Collection<String> findAllLanguages();
 }

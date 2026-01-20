@@ -70,6 +70,10 @@
     </select>
 
     <select id="findAllLanguages" resultType="java.lang.String">
-        select distinct language from gfi.repository_v order by language desc --nulls last
+        select language, count(1) as cnt
+        from gfi.issue_v issue
+                 inner join gfi.repository_v repo on issue.repository_id = repo.id
+        group by language
+        order by cnt desc
     </select>
 </mapper>
